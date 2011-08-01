@@ -18,7 +18,6 @@ if [ "$schedule" = "donotrun" ]; then
 	exit 0
 else
 	[ -z ${notifyaddr} ] && fatal "Not enough arguments"
-	exit 1
 fi
 
 TMPFILE=$(mktemp)

@@ -14,7 +14,9 @@ fatal() {
 TMPFILE=$(mktemp)
 
 cat <<EOB > ${TMPFILE}
-/usr/sbin/openapp-backup | mail -s "Your openapp-backup output" ${notifyaddr}
+NOTIFY_ADDR=${notifyaddr}
+
+/usr/sbin/openapp-backup | mail -s "Your openapp-backup output" \${NOTIFY_ADDR}
 EOB
 
 for runtime in daily weekly monthly; do

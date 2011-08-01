@@ -12,7 +12,10 @@ NOTIFY_ADDR=admin@example.com
 SCHEDULE=daily
 
 for runtime in daily weekly monthly; do
-    [ -f /etc/cron.$runtime/openapp-backup ] && SCHEDULE=$runtime
+    if [ -f /etc/cron.$runtime/openapp-backup ]; then
+		SCHEDULE=$runtime
+		NOTIFY_ADDR=$(grep ^NOTIFY_ADDR /etc/cron.$runtime/openapp-backup | cut -f2 -d'=')
+	fi
 done
 
   cat << _EOF_

@@ -1,7 +1,7 @@
 #!/bin/bash
 . /var/openpanel/api/sh/module.sh
 
-MysqlAdmin.update() {
+BackupAdmin.update() {
   notifyaddr=$(coreval BackupAdmin notifyaddress)
   runtime=$(coreval BackupAdmin schedule)
   authd runscript openapp-backup-cron-schedule "$notifyaddr" "$runtime"
@@ -19,7 +19,7 @@ done
   <openpanel.module>
     <dict id="BackupAdmin" type="class">
       <dict id="openapp-backup-settings" type="object">
-	    <string id="emailaddress">${NOTIFY_ADDR}</string>
+	    <string id="notifyaddress">${NOTIFY_ADDR}</string>
 	    <enum id="schedule">${SCHEDULE}</enum>
       </dict>
     </dict>

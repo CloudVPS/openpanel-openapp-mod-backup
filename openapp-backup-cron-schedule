@@ -9,7 +9,7 @@ fatal() {
     exit 1
 }
 
-[ -z $2 -o $1 ] && fatal "Not enough arguments"
+[ -z $2 -o -z $1 ] && fatal "Not enough arguments"
 
 TMPFILE=$(mktemp)
 

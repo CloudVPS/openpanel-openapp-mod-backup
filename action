@@ -4,7 +4,7 @@
 BackupAdmin.update() {
   notifyaddr=$(coreval BackupAdmin notifyaddress)
   runtime=$(coreval BackupAdmin schedule)
-  authd runscript openapp-backup-cron-schedule "$notifyaddr" "$runtime"
+  authd runscript openapp-backup-cron-schedule "$runtime" "$notifyaddr"
 }
 
 Module.getconfig() {

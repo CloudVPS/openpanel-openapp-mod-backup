@@ -1,7 +1,7 @@
 #!/bin/bash
 
-notifyaddr=$1
-schedule=$2
+schedule=$1
+notifyaddr=$2
 
 fatal() {
     echo $1
@@ -9,14 +9,35 @@ fatal() {
     exit 1
 }
 
-[ -z $2 -o -z $1 ] && fatal "Not enough arguments"
+[ -z $schedule ] && fatal "Not enough arguments"
+
+if [ "$schedule" = "donotrun" ]; then
+	for runtime in daily weekly monthly; do
+		[ -f /etc/cron.$runtime/openapp-backup ] && rm -rf /etc/cron.$runtime/openapp-backup
+	done
+	exit 0
+else
+	[ -z ${notifyaddr} ] && fatal "Not enough arguments"
+	exit 1
+fi
 
 TMPFILE=$(mktemp)
 
 cat <<EOB > ${TMPFILE}
 NOTIFY_ADDR=${notifyaddr}
 
-/usr/sbin/openapp-backup | mail -s "Your openapp-backup output" \${NOTIFY_ADDR}
+OUTPUT=\$(/usr/sbin/openapp-backup)
+if [ \$? -gt 0 ]; then
+	cat <<EOM | mail -s "Errors while running openapp-backup" \${NOTIFY_ADDR}
+Something went wrong while running openapp-backup. Please see the following
+output:
+\${OUTPUT}
+EOM
+else
+	FILENAME=$(date +%F_%H%M%S)
+	mv /tmp/openapp-backup.sh /var/openpanel/conf/staging/OpenAppBackup/openapp-backup_\${FILENAME}.sh
+	echo \${OUTPUT} | sed -e "s#/tmp/openapp-backup.sh#/var/openpanel/conf/staging/OpenAppBackup/openapp-backup_\${FILENAME}.sh#" | mail -s "Your openapp-backup output" \${NOTIFY_ADDR}
+fi
 EOB
 
 for runtime in daily weekly monthly; do
@@ -24,3 +45,4 @@ for runtime in daily weekly monthly; do
 done
 
 mv ${TMPFILE} /etc/cron.$schedule/openapp-backup
+chmod +x /etc/cron.$schedule/openapp-backup

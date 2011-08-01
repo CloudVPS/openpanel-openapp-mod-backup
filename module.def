@@ -50,9 +50,10 @@ class BackupAdmin				< uuid e4a90ac1-9075-4183-93e2-2e86f79a7c3b
 # ENUMS
 # ============================================================================
 enum schedule
-	value daily   : Daily
-	value weekly  : Weekly
-    value monthly : Monthly
+	value donotrun : Backups disabled
+	value daily    : Daily
+	value weekly   : Weekly
+    value monthly  : Monthly
 
 # ============================================================================
 # AUTHD

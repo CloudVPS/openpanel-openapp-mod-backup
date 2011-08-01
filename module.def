@@ -1,0 +1,61 @@
+# ============================================================================
+# This file is part of OpenPanel - The Open Source Control Panel
+# OpenPanel is free software: you can redistribute it and/or modify it 
+# under the terms of the GNU General Public License as published by the Free 
+# Software Foundation, using version 3 of the License.
+#
+# Please note that use of the OpenPanel trademark may be subject to additional 
+# restrictions. For more information, please visit the Legal Information 
+# section of the OpenPanel website on http://www.openpanel.com/
+#
+# OpenPanel OpenAppBackup.module for setting the admin password
+# ============================================================================
+module OpenAppBackup			< uuid b8adea06-2d46-4d62-a16b-e6d87fd24684
+								< version 1.0
+								< languages en_EN
+								< apitype commandline
+								< getconfig true
+								< license GPLv3
+								< author OpenPanel
+								< url http://www.openpanel.com/
+	
+# ============================================================================
+# CLASSES
+# ============================================================================
+class BackupAdmin				< uuid e4a90ac1-9075-4183-93e2-2e86f79a7c3b
+								< version 1
+								< indexing manual
+								< uniquein class
+								< shortname backupadmin
+								< singleton openapp-backup-settings
+								< title Backup admin
+								< description OpenApp Backup settings
+								< sortindex 10
+								< icon user.png
+							
+								< capabilities update
+								< listview id emailaddress
+								< required id password emailaddress
+
+	string notifyaddress		: Notification address
+								< regexp [:email:]
+								< textwidth 45
+                                < example john@acme.example.net
+								
+	enum schedule		    	: Run backups 
+								< default daily
+								< gridwidth 25
+
+# ============================================================================
+# ENUMS
+# ============================================================================
+enum schedule
+	value daily   : Daily
+	value weekly  : Weekly
+    value monthly : Monthly
+
+# ============================================================================
+# AUTHD
+# ============================================================================
+authd scripts
+	script openapp-backup-cron-schedule

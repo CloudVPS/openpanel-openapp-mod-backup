@@ -1,0 +1,35 @@
+#!/bin/bash
+. /var/openpanel/api/sh/module.sh
+
+MysqlAdmin.update() {
+  notifyaddr=$(coreval BackupAdmin notifyaddress)
+  runtime=$(coreval BackupAdmin schedule)
+  authd runscript openapp-backup-cron-schedule "$notifyaddr" "$runtime"
+}
+
+Module.getconfig() {
+NOTIFY_ADDR=admin@example.com
+SCHEDULE=daily
+
+for runtime in daily weekly monthly; do
+    [ -f /etc/cron.$runtime/openapp-backup ] && SCHEDULE=$runtime
+done
+
+  cat << _EOF_
+  <openpanel.module>
+    <dict id="BackupAdmin" type="class">
+      <dict id="openapp-backup-settings" type="object">
+	    <string id="emailaddress">${NOTIFY_ADDR}</string>
+	    <enum id="schedule">${SCHEDULE}</enum>
+      </dict>
+    </dict>
+	<dict id="OpenCORE:Result">
+      <integer id="error">0</integer>
+      <string id="message">OK</string>
+    </dict>
+  </openpanel.module>
+_EOF_
+  exitquiet
+}
+
+implement OpenAppMysql.module

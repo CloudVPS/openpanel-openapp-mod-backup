@@ -9,7 +9,7 @@ BackupAdmin.update() {
 
 Module.getconfig() {
 NOTIFY_ADDR=admin@example.com
-SCHEDULE=daily
+SCHEDULE=donotrun
 
 for runtime in daily weekly monthly; do
     if [ -f /etc/cron.$runtime/openapp-backup ]; then

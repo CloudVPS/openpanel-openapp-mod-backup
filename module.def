@@ -16,6 +16,7 @@ module OpenAppBackup			< uuid b8adea06-2d46-4d62-a16b-e6d87fd24684
 								< apitype commandline
 								< getconfig true
 								< license GPLv3
+                                < dynamic true
 								< author OpenPanel
 								< url http://www.openpanel.com/
 	

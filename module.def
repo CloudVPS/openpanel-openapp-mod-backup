@@ -16,7 +16,6 @@ module OpenAppBackup			< uuid b8adea06-2d46-4d62-a16b-e6d87fd24684
 								< apitype commandline
 								< getconfig true
 								< license GPLv3
-                                < dynamic true
 								< author OpenPanel
 								< url http://www.openpanel.com/
 	
@@ -33,6 +32,7 @@ class BackupAdmin				< uuid e4a90ac1-9075-4183-93e2-2e86f79a7c3b
 								< description OpenApp Backup settings
 								< sortindex 10
 								< icon user.png
+                                < dynamic true
 							
 								< capabilities update
 								< listview id emailaddress

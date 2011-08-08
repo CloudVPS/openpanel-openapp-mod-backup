@@ -7,7 +7,7 @@ BackupAdmin.update() {
   authd runscript openapp-backup-cron-schedule "$runtime" "$notifyaddr"
 }
 
-Module.getconfig() {
+Module.listobjects() {
 NOTIFY_ADDR=admin@example.com
 SCHEDULE=donotrun
 

@@ -45,11 +45,24 @@ _EOF_
 
 STORDIR=/var/openpanel/conf/staging/OpenAppBackup/
 
+NRBACKUPS=$(find ${STORDIR} -type f -name openapp-backup\*.sh | wc -l)
+
+[ $NRBACKUPS -gt 0 ] || cat << _EOF_
+    <dict id="BackupAdmin:Backups" type="class">
+      <dict id="There are no backups yet" type="object">
+        <string id="id">There are no backups yet</string>
+        <string id="date"></string>
+        <string id="time"></string>
+        <string id="class">BackupAdmin:Backups</string>
+      </dict>
+    </dict>
+_EOF_
+
 find ${STORDIR} -type f -name openapp-backup\*.sh | while read backupfile; do
     backupfile=$(echo ${backupfile##$STORDIR})    
     datestamp=$(echo ${backupfile} | cut -f2 -d_)
     timestamp=$(echo ${backupfile} | cut -f3 -d_)
-    timestamp=$(echo ${timestamp%%.sh} | sed -e 's/\([0-9]\{2\}\)/\1:/g')
+    timestamp=$(echo ${timestamp%%:.sh} | sed -e 's/\([0-9]\{2\}\)/\1:/g')
 
     cat << _EOF_
     <dict id="BackupAdmin:Backups" type="class">
@@ -72,6 +85,10 @@ done
 </dict>
 _EOF_
   exitquiet
+}
+
+BackupAdmin:Backups.runbackup() {
+  authd runscript openapp-backup-now 
 }
 
 implement OpenAppBackup.module

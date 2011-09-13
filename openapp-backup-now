@@ -1,0 +1,18 @@
+#!/bin/bash
+
+fatal() {
+    echo $1
+    FATALS=$FATALS+1
+    exit 1
+}
+
+OUTPUT=$(/usr/sbin/openapp-backup)
+if [ $? -gt 0 ]; then
+    echo ${OUTPUT}
+    exit 1
+else
+	FILENAME=$(date +%F_%H%M%S)
+	mv /tmp/openapp-backup.sh /var/openpanel/conf/staging/OpenAppBackup/openapp-backup_${FILENAME}.sh
+fi
+
+echo "Backup completed"

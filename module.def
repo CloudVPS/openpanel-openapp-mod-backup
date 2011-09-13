@@ -56,25 +56,21 @@ class BackupAdmin:Backups       < uuid ba3aa8b4-d74e-4bc5-a105-e18e306fec3b
 								< description Create and delete backups
 								< sortindex 100
 								< gridheight 250
-								< emptytext No backups available.
-								< capabilities update admin
+								< capabilities admin delete
+
+    method runbackup            : Create a backup now < args static
 
     string id                   : Backup
                                 < cliwidth 20
-                                < flags visible
                                 < gridwidth 25
 
     string date                 : Date of backup
                                 < cliwidth 20
-                                < flags visible
                                 < gridwidth 25
 
     string time                 : Time of backup
                                 < cliwidth 20
-                                < flags visible
                                 < gridwidth 25
-
-    method runbackup            : Create a backup now < args static
 
                         
 # ============================================================================

@@ -28,11 +28,10 @@ class BackupAdmin				< uuid e4a90ac1-9075-4183-93e2-2e86f79a7c3b
 								< uniquein class
 								< shortname backupadmin
 								< singleton openapp-backup-settings
-								< title Backup Schedule
-								< description OpenApp Backup schedule
+								< title Backups
+								< description OpenApp Backup
 								< sortindex 10
 								< icon backup.png
-							
 								< capabilities update
 								< listview id emailaddress
 								< required id password emailaddress
@@ -53,14 +52,24 @@ class BackupAdmin:Backups       < uuid ba3aa8b4-d74e-4bc5-a105-e18e306fec3b
 								< uniquein parent
 								< dynamic true
 								< shortname backups
-								< title Backups
-								< description Run and download backups
+								< title Create/Delete
+								< description Create and delete backups
 								< sortindex 100
 								< gridheight 250
 								< emptytext No backups available.
 								< capabilities update admin
 
     string id                   : Backup
+                                < cliwidth 20
+                                < flags visible
+                                < gridwidth 25
+
+    string date                 : Date of backup
+                                < cliwidth 20
+                                < flags visible
+                                < gridwidth 25
+
+    string time                 : Time of backup
                                 < cliwidth 20
                                 < flags visible
                                 < gridwidth 25

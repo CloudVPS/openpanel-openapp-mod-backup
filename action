@@ -94,8 +94,8 @@ BackupAdmin:Backups.runbackup() {
 }
 
 BackupAdmin:Backups.delete() {
-    file=$(coreval BackupAdmin:Backups id)
-    rm -rf ${STORDIR}/${file}
+    file=$(coreval OpenCORE:Session objectid)
+    [ -f "${STORDIR}/${file}" ] && rm -rf "${STORDIR}/${file}"
 }
 
 implement OpenAppBackup.module

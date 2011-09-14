@@ -87,6 +87,7 @@ enum schedule
 # ============================================================================
 authd scripts
 	script openapp-backup-cron-schedule
+	script openapp-backup-now
 
 authd commands
     command createbackup

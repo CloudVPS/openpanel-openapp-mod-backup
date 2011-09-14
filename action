@@ -1,6 +1,8 @@
 #!/bin/bash
 . /var/openpanel/api/sh/module.sh
 
+STORDIR=/var/openpanel/conf/staging/OpenAppBackup/
+
 BackupAdmin.update() {
   notifyaddr=$(coreval BackupAdmin notifyaddress)
   runtime=$(coreval BackupAdmin schedule)
@@ -43,7 +45,6 @@ BackupAdmin:Backups.listobjects() {
   <dict id="objects">
 _EOF_
 
-STORDIR=/var/openpanel/conf/staging/OpenAppBackup/
 
 NRBACKUPS=$(find ${STORDIR} -type f -name openapp-backup\*.sh | wc -l)
 
@@ -68,6 +69,7 @@ find ${STORDIR} -type f -name openapp-backup\*.sh | while read backupfile; do
     <dict id="BackupAdmin:Backups" type="class">
       <dict id="${backupfile}" type="object">
         <string id="id">${backupfile}</string>
+        <string id="uuid">${backupfile}</string>
         <string id="date">${datestamp}</string>
         <string id="time">${timestamp}</string>
         <string id="class">BackupAdmin:Backups</string>
@@ -88,7 +90,12 @@ _EOF_
 }
 
 BackupAdmin:Backups.runbackup() {
-  authd runscript openapp-backup-now 
+    authd runscript openapp-backup-now 
+}
+
+BackupAdmin:Backups.delete() {
+    file=$(coreval BackupAdmin:Backups id)
+    rm -rf ${STORDIR}/${file}
 }
 
 implement OpenAppBackup.module

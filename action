@@ -94,7 +94,9 @@ BackupAdmin:Backups.runbackup() {
 }
 
 BackupAdmin:Backups.delete() {
-    file=$(coreval OpenCORE:Session objectid)
+    file=$(coreval OpenCORE:Session objectid | egrep "^[-a-zA-Z0-9:_.]+$")
+    [ -z "${file}" ] && exiterror "Not a valid file"
+
     [ -f "${STORDIR}/${file}" ] && rm -rf "${STORDIR}/${file}"
 }
 

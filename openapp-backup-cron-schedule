@@ -23,6 +23,8 @@ fi
 TMPFILE=$(mktemp)
 
 cat <<EOB > ${TMPFILE}
+#!/bin/sh
+
 NOTIFY_ADDR=${notifyaddr}
 
 OUTPUT=\$(/usr/sbin/openapp-backup)

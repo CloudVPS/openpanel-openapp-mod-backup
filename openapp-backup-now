@@ -13,6 +13,8 @@ if [ $? -gt 0 ]; then
 else
 	FILENAME=$(date +%F_%H%M%S)
 	mv /tmp/openapp-backup.sh /var/openpanel/conf/staging/OpenAppBackup/openapp-backup_${FILENAME}.sh
+    chmod 640 /var/openpanel/conf/staging/OpenAppBackup/openapp-backup_${FILENAME}.sh
+    chown root:opencore /var/openpanel/conf/staging/OpenAppBackup/openapp-backup_${FILENAME}.sh
 fi
 
 echo "Backup completed"

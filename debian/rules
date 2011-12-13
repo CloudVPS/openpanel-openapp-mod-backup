@@ -18,6 +18,8 @@ install:
 	cp module.xml ${BUILD_ROOT}/var/openpanel/modules/OpenAppBackup.module/module.xml
 	cp *.png ${BUILD_ROOT}/var/openpanel/modules/OpenAppBackup.module/
 	install -m 755 verify ${BUILD_ROOT}/var/openpanel/modules/OpenAppBackup.module/verify
+	install -m 755 translatepath ${BUILD_ROOT}/var/openpanel/modules/OpenAppBackup.module/translatepath
+	install -m 644 openapp-backup.html ${BUILD_ROOT}/var/openpanel/modules/OpenAppBackup.module/openapp-backup.html
 	mkdir -p ${BUILD_ROOT}/var/openpanel/tools/
 	install -m 755 openapp-backup-cron-schedule ${BUILD_ROOT}/var/openpanel/tools/openapp-backup-cron-schedule
 	install -m 755 openapp-backup-now ${BUILD_ROOT}/var/openpanel/tools/openapp-backup-now

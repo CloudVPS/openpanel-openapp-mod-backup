@@ -1,0 +1,7 @@
+#!/bin/sh
+
+username=$1
+file=$2
+
+echo "/var/openpanel/conf/staging/OpenAppBackup/$file" >> /tmp/output
+echo /var/openpanel/conf/staging/OpenAppBackup/$file

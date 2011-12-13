@@ -30,6 +30,7 @@ class BackupAdmin				< uuid e4a90ac1-9075-4183-93e2-2e86f79a7c3b
 								< singleton openapp-backup-settings
 								< title Backups
 								< description OpenApp Backup
+                                < explanation openapp-backup.html
 								< sortindex 10
 								< icon backup.png
 								< capabilities update
@@ -72,6 +73,12 @@ class BackupAdmin:Backups       < uuid ba3aa8b4-d74e-4bc5-a105-e18e306fec3b
                                 < cliwidth 20
                                 < gridwidth 25
 
+    string download             : Download file
+                                < gridhide true
+
+    string filesize             : Filesize (Bytes)
+                                < cliwidth 20
+                                < gridwidth 10
                         
 # ============================================================================
 # ENUMS

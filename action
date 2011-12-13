@@ -60,11 +60,15 @@ NRBACKUPS=$(find ${STORDIR} -type f -name openapp-backup\*.sh | wc -l)
 _EOF_
 
 find ${STORDIR} -type f -name openapp-backup\*.sh | while read backupfile; do
+    filesize=$(du -h ${backupfile} | cut -f 1)
     backupfile=$(echo ${backupfile##$STORDIR})    
     datestamp=$(echo ${backupfile} | cut -f2 -d_)
     timestamp=$(echo ${backupfile} | cut -f3 -d_)
     timestamp=$(echo ${timestamp} | sed -e 's/\([0-9]\{2\}\)/\1:/g')
     timestamp=$(echo ${timestamp%%:.sh}) 
+
+    link="<a href=\"javascript:_construct_link('${backupfile}')\">Download file</a>"
+    link=$(echo ${link} | sed -e 's/</\&lt;/g' | sed -e 's/>/\&gt;/g')
 
     cat << _EOF_
     <dict id="BackupAdmin:Backups" type="class">
@@ -73,6 +77,8 @@ find ${STORDIR} -type f -name openapp-backup\*.sh | while read backupfile; do
         <string id="uuid">${backupfile}</string>
         <string id="date">${datestamp}</string>
         <string id="time">${timestamp}</string>
+        <string id="filesize">${filesize}</string>
+        <string id="download">${link}</string>
         <string id="class">BackupAdmin:Backups</string>
       </dict>
     </dict>

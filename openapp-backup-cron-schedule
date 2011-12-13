@@ -38,7 +38,7 @@ else
 	FILENAME=\$(date +%F_%H%M%S)
 	mv /tmp/openapp-backup.sh /var/openpanel/conf/staging/OpenAppBackup/openapp-backup_\${FILENAME}.sh
     chmod 640 /var/openpanel/conf/staging/OpenAppBackup/openapp-backup_\${FILENAME}.sh
-    chown root:opencore /var/openpanel/conf/staging/OpenAppBackup/openapp-backup_\${FILENAME}.sh
+    chown root:openpanel-core /var/openpanel/conf/staging/OpenAppBackup/openapp-backup_\${FILENAME}.sh
 
 	echo "\${OUTPUT}" | sed -e "s#/tmp/openapp-backup.sh#/var/openpanel/conf/staging/OpenAppBackup/openapp-backup_\${FILENAME}.sh#" | mail -s "Your openapp-backup output" \${NOTIFY_ADDR}
 fi
